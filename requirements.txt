@@ -1,0 +1,4 @@
+# loop-hermes 依赖声明
+# Python >= 3.10 必须——Hermes Agent SDK 兼容性基线，使用 dataclass、match/case 等 3.10+ 特性
+jsonschema==4.20.0
+requests==2.31.0

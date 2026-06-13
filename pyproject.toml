@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loop-hermes"
+version = "0.1.0"
+description = "Hermes Agent 自动驾驶开发闭环 —— 设定目标，自动完成设计→实施→测试→验证全闭环"
+authors = [{ name = "loop-hermes contributors" }]
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "jsonschema>=4.20",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "pytest-mock>=3.14",
+    "pytest-timeout>=2.3",
+    "ruff>=0.5",
+    "mypy>=1.11",
+    "bandit>=1.7",
+]
+build = [
+    "pyinstaller>=6.0",
+]
+
+[project.scripts]
+loop-hermes = "loop_hermes.cli:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "B008",   # do not perform function calls in argument defaults
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S108"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_unreachable = true
+warn_unused_ignores = true
+check_untyped_defs = true
+warn_return_any = true
+show_error_codes = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "--cov=loop_hermes",
+    "--cov-report=term-missing",
+    "-p", "no:warnings",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+timeout = 30
+
+[tool.coverage.run]
+source = ["loop_hermes"]
+omit = ["tests/*", "loop_hermes/cli.py"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "build", "scripts"]
+skips = ["B101", "B603"]

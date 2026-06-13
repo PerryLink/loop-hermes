@@ -1,0 +1,37 @@
+{
+  "version": "2.0",
+  "progress": {
+    "phase": "init",
+    "cycle": 0,
+    "convergence_counter": 0,
+    "phase_history": []
+  },
+  "issues": {
+    "p0": [],
+    "p1": [],
+    "p2": []
+  },
+  "tasks": {
+    "completed": [],
+    "in_progress": [],
+    "pending": []
+  },
+  "config": {
+    "goal": "build a weather CLI",
+    "mode": "L2_auto",
+    "max_cycles": 5,
+    "convergence_rounds": 2,
+    "hermes_model": "claude-sonnet-4-20250514",
+    "provider_fallback": "claude,openai,deepseek"
+  },
+  "billing": {
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "cost_usd": 0.0
+  },
+  "circuit_breaker": {
+    "state": "CLOSED",
+    "failures": 0,
+    "last_failure_ts": null
+  }
+}
